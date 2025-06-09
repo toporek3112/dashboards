@@ -73,12 +73,15 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Temp"
+              "options": "Cost"
             },
             "properties": [
               {
                 "id": "unit",
-                "value": "celsius"
+                "value": "currencyEUR"
+              },
+              {
+                "id": "decimals"
               },
               {
                 "id": "thresholds",
@@ -90,68 +93,31 @@
                     },
                     {
                       "color": "#EAB839",
-                      "value": 70
+                      "value": 5
                     },
                     {
                       "color": "red",
-                      "value": 85
+                      "value": 10
                     }
                   ]
                 }
               },
               {
-                "id": "min",
-                "value": 0
-              },
-              {
-                "id": "max",
-                "value": 110
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Watts"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "watt"
-              },
-              {
-                "id": "min",
-                "value": 0
-              },
-              {
-                "id": "max",
-                "value": 8
-              },
-              {
-                "id": "thresholds",
+                "id": "color",
                 "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green"
-                    },
-                    {
-                      "color": "#EAB839",
-                      "value": 4
-                    },
-                    {
-                      "color": "red",
-                      "value": 6
-                    }
-                  ]
+                  "mode": "thresholds"
                 }
+              },
+              {
+                "id": "max",
+                "value": 5
               }
             ]
           }
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 4,
         "w": 5,
         "x": 0,
         "y": 1
@@ -190,23 +156,10 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "rate(node_rapl_package_joules_total{instance=~\"$instance\"}[1m])",
+          "expr": "increase(node_rapl_package_joules_total{instance=~\"$instance\",job=\"$job\"}[$__range]) * 3 / 3600000\r\n",
           "hide": false,
           "instant": false,
-          "legendFormat": "Watts",
-          "range": true,
-          "refId": "F"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "max(node_hwmon_temp_celsius{instance=~\"$instance\"})",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Temp",
+          "legendFormat": "Cost",
           "range": true,
           "refId": "E"
         },
@@ -413,82 +366,11 @@
                 }
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Temp"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "celsius"
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              },
-              {
-                "id": "custom.stacking",
-                "value": {
-                  "group": "A",
-                  "mode": "none"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "thresholds"
-                }
-              },
-              {
-                "id": "custom.lineWidth",
-                "value": 2
-              },
-              {
-                "id": "min",
-                "value": 0
-              },
-              {
-                "id": "max",
-                "value": 100
-              },
-              {
-                "id": "custom.lineInterpolation",
-                "value": "smooth"
-              },
-              {
-                "id": "custom.thresholdsStyle",
-                "value": {
-                  "mode": "dashed"
-                }
-              },
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green"
-                    },
-                    {
-                      "color": "yellow",
-                      "value": 70
-                    },
-                    {
-                      "color": "red",
-                      "value": 85
-                    }
-                  ]
-                }
-              }
-            ]
           }
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 9,
         "w": 10,
         "x": 5,
         "y": 1
@@ -573,19 +455,6 @@
           "range": true,
           "refId": "F",
           "step": 240
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "max(node_hwmon_temp_celsius{instance=~\"$instance\"})",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Temp",
-          "range": true,
-          "refId": "G"
         }
       ],
       "title": "CPU Basic",
@@ -719,82 +588,11 @@
                 }
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Temp"
-            },
-            "properties": [
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              },
-              {
-                "id": "custom.stacking",
-                "value": {
-                  "group": "A",
-                  "mode": "none"
-                }
-              },
-              {
-                "id": "unit",
-                "value": "celsius"
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "thresholds"
-                }
-              },
-              {
-                "id": "custom.lineInterpolation",
-                "value": "smooth"
-              },
-              {
-                "id": "custom.lineWidth",
-                "value": 2
-              },
-              {
-                "id": "min",
-                "value": 0
-              },
-              {
-                "id": "max",
-                "value": 100
-              },
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green"
-                    },
-                    {
-                      "color": "#EAB839",
-                      "value": 70
-                    },
-                    {
-                      "color": "red",
-                      "value": 85
-                    }
-                  ]
-                }
-              },
-              {
-                "id": "custom.thresholdsStyle",
-                "value": {
-                  "mode": "dashed"
-                }
-              }
-            ]
           }
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 9,
         "w": 9,
         "x": 15,
         "y": 1
@@ -875,7 +673,7 @@
           },
           "editorMode": "code",
           "expr": "max(node_hwmon_temp_celsius{instance=~\"$instance\"})",
-          "hide": false,
+          "hide": true,
           "instant": false,
           "legendFormat": "Temp",
           "range": true,
@@ -883,6 +681,196 @@
         }
       ],
       "title": "Memory Basic",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Watts"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "watt"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "custom.axisColorMode",
+                "value": "series"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "yellow"
+                    },
+                    {
+                      "color": "red",
+                      "value": 6
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 8
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Temp"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "celsius"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "custom.axisColorMode",
+                "value": "series"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "orange",
+                      "value": 70
+                    },
+                    {
+                      "color": "red",
+                      "value": 85
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 0,
+        "y": 5
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "11.6.0-pre",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "max(node_hwmon_temp_celsius{instance=~\"$instance\"})",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Temp",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "editorMode": "code",
+          "expr": "rate(node_rapl_package_joules_total{instance=~\"$instance\"}[$__rate_interval])",
+          "legendFormat": "Watts",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Watts and Temp",
       "type": "timeseries"
     }
   ],
@@ -929,13 +917,13 @@
         "allValue": ".+",
         "current": {
           "text": [
-            "zb02",
             "zb00",
+            "zb02",
             "zb01"
           ],
           "value": [
-            "zb02",
             "zb00",
+            "zb02",
             "zb01"
           ]
         },
@@ -986,12 +974,12 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "node_exporter/overview",
   "uid": "aeo9jdrdt7zeoe",
-  "version": 35
+  "version": 39
 }
