@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 8,
+  "id": 7,
   "links": [],
   "panels": [
     {
@@ -148,7 +148,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "11.6.0-pre",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -156,7 +156,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(node_rapl_package_joules_total{instance=~\"$instance\",job=\"$job\"}[$__range]) * 3 / 3600000\r\n",
+          "expr": "increase(node_rapl_package_joules_total{instance=~\"$instance\",job=\"$job\"}[$__range]) / 3600000 * 0.3\r\n",
           "hide": false,
           "instant": false,
           "legendFormat": "Cost",
@@ -371,7 +371,7 @@
       },
       "gridPos": {
         "h": 9,
-        "w": 10,
+        "w": 7,
         "x": 5,
         "y": 1
       },
@@ -390,7 +390,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.6.0-pre",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "editorMode": "code",
@@ -593,8 +593,8 @@
       },
       "gridPos": {
         "h": 9,
-        "w": 9,
-        "x": 15,
+        "w": 6,
+        "x": 12,
         "y": 1
       },
       "id": 5,
@@ -612,7 +612,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0-pre",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "editorMode": "code",
@@ -688,6 +688,123 @@
         "type": "prometheus",
         "uid": "prometheus"
       },
+      "description": "Per-interface network traffic (receive and transmit) in bits per second",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 40,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Tx.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "rate(node_network_receive_bytes_total{instance=~\"$instance\",job=\"$job\"}[$__rate_interval])*8",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Rx {{device}}",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "rate(node_network_transmit_bytes_total{instance=~\"$instance\",job=\"$job\"}[$__rate_interval])*8",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Tx {{device}} ",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "Network Traffic Basic",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -710,7 +827,7 @@
               "viz": false
             },
             "insertNulls": false,
-            "lineInterpolation": "linear",
+            "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -834,6 +951,7 @@
         "y": 5
       },
       "id": 7,
+      "maxDataPoints": 50,
       "options": {
         "legend": {
           "calcs": [],
@@ -847,7 +965,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.6.0-pre",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -916,15 +1034,9 @@
       {
         "allValue": ".+",
         "current": {
-          "text": [
-            "zb00",
-            "zb02",
-            "zb01"
-          ],
+          "text": "All",
           "value": [
-            "zb00",
-            "zb02",
-            "zb01"
+            "$__all"
           ]
         },
         "datasource": {
@@ -970,6 +1082,24 @@
         "refresh": 1,
         "regex": "",
         "type": "query"
+      },
+      {
+        "current": {
+          "text": "0.3",
+          "value": "0.3"
+        },
+        "description": "",
+        "label": "kW/h price",
+        "name": "kwh",
+        "options": [
+          {
+            "selected": true,
+            "text": "0.3",
+            "value": "0.3"
+          }
+        ],
+        "query": "0.3",
+        "type": "textbox"
       }
     ]
   },
@@ -979,7 +1109,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "node_exporter/overview",
-  "uid": "aeo9jdrdt7zeoe",
-  "version": 39
+  "title": "node-exporter - hardware",
+  "uid": "node-exporter_hardware",
+  "version": 7
 }

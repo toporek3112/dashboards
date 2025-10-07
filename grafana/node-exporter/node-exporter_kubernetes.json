@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 15255,
+  "id": 10,
   "links": [],
   "panels": [
     {
@@ -32,7 +32,6 @@
       "id": 1,
       "panels": [],
       "repeat": "node",
-      "repeatDirection": "h",
       "title": "$node",
       "type": "row"
     },
@@ -88,8 +87,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -313,7 +311,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.6.0-pre",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -502,8 +500,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -724,7 +721,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0-pre",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -872,8 +869,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -957,7 +953,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -1097,32 +1093,27 @@
       "type": "table"
     }
   ],
+  "preload": false,
   "refresh": "5s",
-  "schemaVersion": 39,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": true,
           "text": "prometheus",
           "value": "prometheus"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
           "text": "node-exporter",
           "value": "node-exporter"
         },
@@ -1131,9 +1122,7 @@
           "uid": "${datasource}"
         },
         "definition": "label_values(node_uname_info,job)",
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "job",
         "options": [],
         "query": {
@@ -1143,24 +1132,19 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": "cdc-crossplane-dev",
-          "value": "cdc-crossplane-dev"
+          "text": "local",
+          "value": "local"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${datasource}"
         },
         "definition": "label_values(node_uname_info{job=\"$job\"},cluster)",
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "cluster",
         "options": [],
         "query": {
@@ -1170,18 +1154,13 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "allValue": ".+",
         "allowCustomValue": false,
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1203,17 +1182,12 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "allValue": ".+",
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1223,7 +1197,6 @@
           "uid": "${datasource}"
         },
         "definition": "label_values(node_uname_info{job=\"$job\", instance=~\"$instance\", cluster=\"$cluster\"},nodename)",
-        "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "node",
@@ -1235,8 +1208,6 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -1247,8 +1218,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "node_exporter/overview",
-  "uid": "aeo9jdrdt7zeoe",
-  "version": 7,
-  "weekStart": ""
+  "title": "node-exporter - kubernetes",
+  "uid": "node-exporter_kuberetes",
+  "version": 1
 }
