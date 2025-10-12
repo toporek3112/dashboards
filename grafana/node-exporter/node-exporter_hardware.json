@@ -158,7 +158,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum without (pod, container, endpoint, service) (\r\n  increase(node_rapl_package_joules_total{instance=~\"$instance\",job=\"$job\",cluster=\"local\"}[$__range])\r\n)\r\n / 3.6e6 * 0.3\r\n* on(instance) group_left(nodename)\r\n  node_uname_info{job=\"$job\",nodename=\"$node\"}\r\n",
+          "expr": "sum without (pod, container, endpoint, service) (\r\n  increase(node_rapl_package_joules_total{instance=~\"$instance\",job=\"$job\",cluster=\"local\"}[$__range])\r\n)\r\n / 3.6e6 * $kwh\r\n* on(instance) group_left(nodename)\r\n  node_uname_info{job=\"$job\",nodename=\"$node\"}\r\n",
           "hide": false,
           "instant": false,
           "legendFormat": "Cost",
