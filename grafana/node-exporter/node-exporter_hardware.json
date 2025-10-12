@@ -55,7 +55,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "yellow",
@@ -89,7 +90,8 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green"
+                      "color": "green",
+                      "value": 0
                     },
                     {
                       "color": "#EAB839",
@@ -148,7 +150,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "12.0.1",
+      "pluginVersion": "12.3.0-18361579112",
       "targets": [
         {
           "datasource": {
@@ -156,7 +158,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(node_rapl_package_joules_total{instance=~\"$instance\",job=\"$job\"}[$__range]) / 3600000 * 0.3\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "sum without(pod) (increase(node_rapl_package_joules_total{instance=~\"$instance\",job=\"$job\"}[$__range]) / 3600000 * 0.3)\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "Cost",
@@ -270,6 +272,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -286,7 +289,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           }
@@ -510,7 +514,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.1",
+      "pluginVersion": "12.3.0-18361579112",
       "targets": [
         {
           "datasource": {
@@ -682,6 +686,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -697,7 +702,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -738,11 +744,11 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.1",
+      "pluginVersion": "12.3.0-18361579112",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "rate(node_network_receive_bytes_total{instance=~\"$instance\",job=\"$job\"}[$__rate_interval])*8\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "sum by (instance,device) (\r\n  rate(node_network_receive_bytes_total{instance=~\"$instance\",job=\"$job\"}[$__rate_interval])\r\n) * 8\r\n* on(instance) group_left(nodename)\r\n  max by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})\r\n",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Rx {{device}}",
@@ -752,7 +758,7 @@
         },
         {
           "editorMode": "code",
-          "expr": "rate(node_network_transmit_bytes_total{instance=~\"$instance\",job=\"$job\"}[$__rate_interval])*8\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "sum by (instance,device) (\r\n  rate(node_network_transmit_bytes_total{instance=~\"$instance\",job=\"$job\"}[$__rate_interval])\r\n) * 8\r\n* on(instance) group_left(nodename)\r\n  max by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})\r\n",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Tx {{device}} ",
@@ -799,6 +805,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -816,7 +823,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -844,7 +852,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.1",
+      "pluginVersion": "12.3.0-18361579112",
       "targets": [
         {
           "datasource": {
@@ -852,7 +860,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(\r\n  (\r\n    (\r\n      node_filesystem_size_bytes{instance=~\"$instance\", job=\"$job\", device!~\"rootfs\"} \r\n      - \r\n      node_filesystem_avail_bytes{instance=~\"$instance\", job=\"$job\", device!~\"rootfs\"}\r\n    ) \r\n    / \r\n    node_filesystem_size_bytes{instance=~\"$instance\", job=\"$job\", device!~\"rootfs\"}\r\n  ) * 100\r\n  != 0\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "(\r\n  (\r\n    (\r\n      max without (pod,container,endpoint,service) (\r\n        node_filesystem_size_bytes{instance=~\"$instance\",job=\"$job\",device!~\"rootfs\"}\r\n      )\r\n    -\r\n      max without (pod,container,endpoint,service) (\r\n        node_filesystem_avail_bytes{instance=~\"$instance\",job=\"$job\",device!~\"rootfs\"}\r\n      )\r\n    )\r\n    /\r\n    max without (pod,container,endpoint,service) (\r\n      node_filesystem_size_bytes{instance=~\"$instance\",job=\"$job\",device!~\"rootfs\"}\r\n    )\r\n  ) * 100 != 0\r\n)\r\n* on(instance) group_left(nodename)\r\n  max by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})\r\n",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{mountpoint}}",
@@ -898,6 +906,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -912,7 +921,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -949,7 +959,8 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "yellow"
+                      "color": "yellow",
+                      "value": 0
                     },
                     {
                       "color": "red",
@@ -991,7 +1002,8 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green"
+                      "color": "green",
+                      "value": 0
                     },
                     {
                       "color": "orange",
@@ -1029,7 +1041,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.1",
+      "pluginVersion": "12.3.0-18361579112",
       "targets": [
         {
           "datasource": {
@@ -1091,6 +1103,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1107,7 +1120,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -1328,7 +1342,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.1",
+      "pluginVersion": "12.3.0-18361579112",
       "targets": [
         {
           "datasource": {
@@ -1336,7 +1350,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "node_memory_MemTotal_bytes{job=\"$job\"}\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "max by (instance) (node_memory_MemTotal_bytes{job=\"$job\"})\r\n*\r\non(instance) group_left(nodename)\r\nmax by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1351,7 +1365,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "(\r\n  node_memory_MemTotal_bytes{job=\"$job\"} \r\n  - node_memory_MemFree_bytes{job=\"$job\"} \r\n  - (node_memory_Cached_bytes{job=\"$job\"} \r\n  + node_memory_Buffers_bytes{job=\"$job\"} + node_memory_SReclaimable_bytes{job=\"$job\"})\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "max by (instance) (\r\n  node_memory_MemTotal_bytes{job=\"$job\"} \r\n  - node_memory_MemFree_bytes{job=\"$job\"} \r\n  - (node_memory_Cached_bytes{job=\"$job\"} \r\n  + node_memory_Buffers_bytes{job=\"$job\"} + node_memory_SReclaimable_bytes{job=\"$job\"})\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nmax by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1366,7 +1380,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "(  \r\n  node_memory_Cached_bytes{job=\"$job\"} \r\n  + node_memory_Buffers_bytes{job=\"$job\"} \r\n  + node_memory_SReclaimable_bytes{job=\"$job\"}\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "max by (instance) (  \r\n  node_memory_Cached_bytes{job=\"$job\"} \r\n  + node_memory_Buffers_bytes{job=\"$job\"} \r\n  + node_memory_SReclaimable_bytes{job=\"$job\"}\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nmax by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Cache + Buffer",
@@ -1380,7 +1394,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "node_memory_MemFree_bytes{job=\"$job\"}\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "max by (instance) (node_memory_MemFree_bytes{job=\"$job\"})\r\n*\r\non(instance) group_left(nodename)\r\nmax by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Free",
@@ -1394,7 +1408,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "(\r\n  (node_memory_SwapTotal_bytes{job=\"$job\"} \r\n  - node_memory_SwapFree_bytes{job=\"$job\"})\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "max by (instance) (\r\n  (node_memory_SwapTotal_bytes{job=\"$job\"} \r\n  - node_memory_SwapFree_bytes{job=\"$job\"})\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nmax by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Swap used",
@@ -1448,7 +1462,7 @@
   ],
   "preload": false,
   "refresh": "5s",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
@@ -1560,12 +1574,12 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "node-exporter - hardware",
   "uid": "node-exporter_hardware",
-  "version": 4
+  "version": 1
 }
