@@ -869,6 +869,7 @@
           "editorMode": "code",
           "expr": "(\r\n  (\r\n    (\r\n      max without (pod,container,endpoint,service) (\r\n        node_filesystem_size_bytes{instance=~\"$instance\",job=\"$job\",device!~\"rootfs\"}\r\n      )\r\n    -\r\n      max without (pod,container,endpoint,service) (\r\n        node_filesystem_avail_bytes{instance=~\"$instance\",job=\"$job\",device!~\"rootfs\"}\r\n      )\r\n    )\r\n    /\r\n    max without (pod,container,endpoint,service) (\r\n      node_filesystem_size_bytes{instance=~\"$instance\",job=\"$job\",device!~\"rootfs\"}\r\n    )\r\n  ) * 100 != 0\r\n)\r\n* on(instance) group_left(nodename)\r\n  max by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})\r\n",
           "format": "time_series",
+          "hide": false,
           "intervalFactor": 1,
           "legendFormat": "{{mountpoint}}",
           "range": true,
@@ -1390,7 +1391,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(  \r\n  node_memory_Cached_bytes{job=\"$job\"} \r\n  + node_memory_Buffers_bytes{job=\"$job\"} \r\n  + node_memory_SReclaimable_bytes{job=\"$job\"}\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "(  \r\n  node_memory_Cached_bytes{job=\"$job\"} \r\n  + node_memory_Buffers_bytes{job=\"$job\"} \r\n  + node_memory_SReclaimable_bytes{job=\"$job\"}\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nmax by(instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Cache + Buffer",
@@ -1404,7 +1405,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "node_memory_MemFree_bytes{job=\"$job\"}\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "node_memory_MemFree_bytes{job=\"$job\"}\r\n*\r\non(instance) group_left(nodename)\r\nmax by(instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Free",
@@ -1418,7 +1419,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(\r\n  (node_memory_SwapTotal_bytes{job=\"$job\"} \r\n  - node_memory_SwapFree_bytes{job=\"$job\"})\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nnode_uname_info{job=\"$job\",nodename=\"$node\"}",
+          "expr": "(\r\n  (node_memory_SwapTotal_bytes{job=\"$job\"} \r\n  - node_memory_SwapFree_bytes{job=\"$job\"})\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nmax by(instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Swap used",
@@ -1513,10 +1514,10 @@
         "allValue": ".+",
         "current": {
           "text": [
-            "zb02"
+            "All"
           ],
           "value": [
-            "zb02"
+            "$__all"
           ]
         },
         "datasource": {
@@ -1584,12 +1585,12 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "node-exporter - hardware",
   "uid": "node-exporter_hardware",
-  "version": 4
+  "version": 1
 }
