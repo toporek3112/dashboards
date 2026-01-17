@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 8,
+  "id": 0,
   "links": [],
   "panels": [
     {
@@ -293,8 +293,8 @@
         ]
       },
       "gridPos": {
-        "h": 10,
-        "w": 8,
+        "h": 6,
+        "w": 12,
         "x": 0,
         "y": 1
       },
@@ -304,7 +304,7 @@
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": true,
+          "showLegend": false,
           "width": 250
         },
         "tooltip": {
@@ -313,7 +313,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.3.0-18361579112",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -705,9 +705,9 @@
         ]
       },
       "gridPos": {
-        "h": 10,
-        "w": 7,
-        "x": 8,
+        "h": 6,
+        "w": 12,
+        "x": 12,
         "y": 1
       },
       "id": 28,
@@ -725,7 +725,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18361579112",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -892,12 +892,12 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": "/%/"
+              "options": "/MEM.*/"
             },
             "properties": [
               {
                 "id": "unit",
-                "value": "percentunit"
+                "value": "bytes"
               }
             ]
           },
@@ -908,41 +908,30 @@
             },
             "properties": [
               {
-                "id": "links",
-                "selected": true,
-                "value": [
-                  {
-                    "targetBlank": true,
-                    "title": "Drill down to pods",
-                    "url": "/d/kubernetes_cr_pod/k8s-resources-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=${__data.fields.Namespace}&var-pod=${__data.fields.Pod}"
-                  }
-                ]
-              },
-              {
                 "id": "custom.width",
-                "value": 269
+                "value": 323
               }
             ]
           },
           {
             "matcher": {
-              "id": "byName",
-              "options": "CPU Limits %"
+              "id": "byRegexp",
+              "options": "/.*Requests/"
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 309
+                "id": "custom.minWidth",
+                "value": 50
               }
             ]
           }
         ]
       },
       "gridPos": {
-        "h": 10,
-        "w": 9,
-        "x": 15,
-        "y": 1
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 7
       },
       "id": 27,
       "options": {
@@ -955,7 +944,7 @@
           }
         ]
       },
-      "pluginVersion": "12.3.0-18361579112",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -965,7 +954,7 @@
           "editorMode": "code",
           "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{cluster=\"$cluster\", node=~\"$node\"}) by (pod,namespace)",
           "format": "table",
-          "hide": true,
+          "hide": false,
           "instant": true,
           "refId": "A"
         },
@@ -976,7 +965,7 @@
           },
           "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{cluster=\"$cluster\", node=~\"$node\"}) by (pod)",
           "format": "table",
-          "hide": true,
+          "hide": false,
           "instant": true,
           "refId": "B"
         },
@@ -987,7 +976,7 @@
           },
           "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{cluster=\"$cluster\", node=~\"$node\"}) by (pod)",
           "format": "table",
-          "hide": true,
+          "hide": false,
           "instant": true,
           "refId": "D"
         },
@@ -997,10 +986,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{cluster=\"$cluster\", node=~\"$node\"}) by (pod)",
-          "hide": true,
+          "format": "table",
+          "hide": false,
+          "instant": true,
           "legendFormat": "__auto",
-          "range": true,
+          "range": false,
           "refId": "C"
         },
         {
@@ -1009,10 +1001,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{cluster=\"$cluster\", node=~\"$node\"}) by (pod)",
-          "hide": true,
+          "format": "table",
+          "hide": false,
+          "instant": true,
           "legendFormat": "__auto",
-          "range": true,
+          "range": false,
           "refId": "E"
         },
         {
@@ -1052,11 +1047,14 @@
               "Time 5": true,
               "Value": false,
               "Value #A": false,
+              "Value #B": false,
+              "Value #F": true,
               "cluster": true,
               "container": true,
               "endpoint": true,
               "instance": true,
               "job": true,
+              "namespace": true,
               "node": true,
               "phase": true,
               "prometheus": true,
@@ -1083,9 +1081,9 @@
               "Value": "Status",
               "Value #A": "CPU Usage",
               "Value #B": "CPU Requests",
-              "Value #C": "CPU Requests %",
+              "Value #C": "MEM Requests",
               "Value #D": "CPU Limits",
-              "Value #E": "CPU Limits %",
+              "Value #E": "MEM Limits",
               "Value #F": "Status",
               "namespace": "Namespace",
               "pod": "Pod"
@@ -1097,7 +1095,7 @@
     }
   ],
   "preload": false,
-  "refresh": "5s",
+  "refresh": "",
   "schemaVersion": 42,
   "tags": [],
   "templating": {
@@ -1139,8 +1137,8 @@
       },
       {
         "current": {
-          "text": "local",
-          "value": "local"
+          "text": "infra",
+          "value": "infra"
         },
         "datasource": {
           "type": "prometheus",
@@ -1190,9 +1188,7 @@
       {
         "allValue": ".+",
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1225,5 +1221,5 @@
   "timezone": "browser",
   "title": "node-exporter - kubernetes",
   "uid": "node-exporter_kuberetes",
-  "version": 1
+  "version": 2
 }
