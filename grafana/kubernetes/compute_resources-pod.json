@@ -84,7 +84,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 8,
+  "id": 0,
   "links": [],
   "panels": [
     {
@@ -122,6 +122,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -137,7 +138,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -223,7 +224,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -242,8 +243,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(\n    kube_pod_container_resource_requests{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", pod=~\"$pod\", resource=\"cpu\"}\n)\n",
-          "legendFormat": "requests",
+          "expr": "sum(\n    kube_pod_container_resource_requests{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", pod=~\"$pod\", resource=\"cpu\"}\n) by ($grouping)\n",
+          "legendFormat": "requests {{pod}}",
           "range": true,
           "refId": "B"
         },
@@ -253,8 +254,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(\n    kube_pod_container_resource_limits{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", pod=~\"$pod\", resource=\"cpu\"}\n)\n",
-          "legendFormat": "limits",
+          "expr": "sum(\n    kube_pod_container_resource_limits{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", pod=~\"$pod\", resource=\"cpu\"}\n) by ($grouping)\n",
+          "legendFormat": "limits {{pod}}",
           "range": true,
           "refId": "C"
         }
@@ -299,6 +300,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -314,7 +316,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -338,7 +340,7 @@
                   "steps": [
                     {
                       "color": "green",
-                      "value": null
+                      "value": 0
                     },
                     {
                       "color": "red",
@@ -382,7 +384,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -412,6 +414,9 @@
             "cellOptions": {
               "type": "auto"
             },
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -420,7 +425,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -453,17 +458,9 @@
       "id": 3,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "11.5.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -603,6 +600,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -618,7 +616,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -705,7 +703,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -723,8 +721,10 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(\n    kube_pod_container_resource_requests{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", pod=~\"$pod\", resource=\"memory\"}\n)\n",
-          "legendFormat": "requests",
+          "editorMode": "code",
+          "expr": "sum(\n    kube_pod_container_resource_requests{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", pod=~\"$pod\", resource=\"memory\"}\n) by ($grouping)\n",
+          "legendFormat": "requests {{pod}}",
+          "range": true,
           "refId": "B"
         },
         {
@@ -732,8 +732,10 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(\n    kube_pod_container_resource_limits{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", pod=~\"$pod\", resource=\"memory\"}\n)\n",
-          "legendFormat": "limits",
+          "editorMode": "code",
+          "expr": "sum(\n    kube_pod_container_resource_limits{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", pod=~\"$pod\", resource=\"memory\"}\n) by ($grouping)\n",
+          "legendFormat": "limits {{pod}}",
+          "range": true,
           "refId": "C"
         }
       ],
@@ -753,6 +755,9 @@
             "cellOptions": {
               "type": "auto"
             },
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -760,7 +765,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -794,17 +800,9 @@
       "id": 5,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -986,6 +984,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1000,7 +999,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1031,11 +1031,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "v10.4.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1084,6 +1085,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1098,7 +1100,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1129,11 +1132,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "v10.4.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1182,6 +1186,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1196,7 +1201,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1227,11 +1233,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "v10.4.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1280,6 +1287,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1294,7 +1302,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1325,11 +1334,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "v10.4.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1378,6 +1388,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1392,7 +1403,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1423,11 +1435,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "v10.4.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1476,6 +1489,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1490,7 +1504,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1521,11 +1536,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "v10.4.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1574,6 +1590,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1588,7 +1605,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1619,11 +1637,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "v10.4.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1681,6 +1700,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1695,7 +1715,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1726,11 +1747,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "v10.4.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1788,6 +1810,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1802,7 +1825,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1833,11 +1857,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "v10.4.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1886,6 +1911,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1900,7 +1926,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1931,11 +1958,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "v10.4.0",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1962,6 +1990,9 @@
             "cellOptions": {
               "type": "auto"
             },
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1969,7 +2000,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -2014,17 +2046,9 @@
       "id": 16,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -2140,7 +2164,7 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 42,
   "tags": [
     "kubernetes-mixin"
   ],
@@ -2162,8 +2186,8 @@
       },
       {
         "current": {
-          "text": "",
-          "value": ""
+          "text": "infra",
+          "value": "infra"
         },
         "datasource": {
           "type": "prometheus",
@@ -2182,8 +2206,8 @@
       },
       {
         "current": {
-          "text": "argocd",
-          "value": "argocd"
+          "text": "monitoring",
+          "value": "monitoring"
         },
         "datasource": {
           "type": "prometheus",
@@ -2203,10 +2227,14 @@
       {
         "current": {
           "text": [
-            "All"
+            "otel-logs-collector-2vs2d",
+            "otel-logs-collector-tnm6j",
+            "otel-logs-collector-vgt5n"
           ],
           "value": [
-            "$__all"
+            "otel-logs-collector-2vs2d",
+            "otel-logs-collector-tnm6j",
+            "otel-logs-collector-vgt5n"
           ]
         },
         "datasource": {
@@ -2251,13 +2279,12 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "CTE",
   "title": "Kubernetes / Compute Resources / Pod",
   "uid": "kubernetes_cr_pod",
-  "version": 1,
-  "weekStart": ""
+  "version": 2
 }
