@@ -37,9 +37,8 @@
     },
     {
       "datasource": {
-        "default": false,
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "description": "CPU time spent busy vs idle, split by activity type",
       "fieldConfig": {
@@ -318,7 +317,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -335,7 +334,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by(instance)(\r\n  irate(node_cpu_seconds_total{job=\"$job\", mode=\"user\"}[$__rate_interval])\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nmax by(instance,nodename)(node_uname_info{job=\"$job\", nodename=\"$node\"})",
@@ -350,7 +349,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by(instance)(\r\n  irate(node_cpu_seconds_total{job=\"$job\", mode=\"iowait\"}[$__rate_interval])\r\n)\r\n* on(instance) group_left(nodename)\r\nmax by(instance,nodename)(node_uname_info{job=\"$job\", nodename=\"$node\"})",
@@ -365,7 +364,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by(instance)(\r\n  irate(node_cpu_seconds_total{job=\"$job\", mode=~\".*irq\"}[$__rate_interval])\r\n)\r\n* on(instance) group_left(nodename)\r\nmax by(instance,nodename)(node_uname_info{job=\"$job\", nodename=\"$node\"})",
@@ -380,7 +379,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by(instance)(\r\n  irate(node_cpu_seconds_total{job=\"$job\",\r\n                               mode!=\"idle\",\r\n                               mode!=\"user\",\r\n                               mode!=\"system\",\r\n                               mode!=\"iowait\",\r\n                               mode!=\"irq\",\r\n                               mode!=\"softirq\"}[$__rate_interval])\r\n)\r\n* on(instance) group_left(nodename)\r\nmax by(instance,nodename)(node_uname_info{job=\"$job\", nodename=\"$node\"})",
@@ -395,7 +394,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by(instance)(\r\n  irate(node_cpu_seconds_total{job=\"$job\", mode=\"idle\"}[$__rate_interval])\r\n)\r\n* on(instance) group_left(nodename)\r\nmax by(instance,nodename)(node_uname_info{job=\"$job\", nodename=\"$node\"})",
@@ -410,7 +409,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(kube_node_status_allocatable{resource=\"cpu\", unit=\"core\",node=\"$node\"}) by (instance)",
@@ -423,7 +422,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by(node)(\r\n  kube_pod_container_resource_requests{resource=\"cpu\",unit=\"core\",node=\"$node\"}\r\n)",
@@ -436,7 +435,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by(node)(\r\n  kube_pod_container_resource_limits{resource=\"cpu\",unit=\"core\",node=\"$node\"}\r\n)",
@@ -452,9 +451,8 @@
     },
     {
       "datasource": {
-        "default": false,
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "description": "RAM and swap usage overview, including caches",
       "fieldConfig": {
@@ -730,7 +728,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "max by (instance) (node_memory_MemTotal_bytes{job=\"$job\"})\r\n*\r\non(instance) group_left(nodename)\r\nmax by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
@@ -745,7 +743,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "max by (instance) (\r\n  node_memory_MemTotal_bytes{job=\"$job\"} \r\n  - node_memory_MemFree_bytes{job=\"$job\"} \r\n  - (node_memory_Cached_bytes{job=\"$job\"} \r\n  + node_memory_Buffers_bytes{job=\"$job\"} + node_memory_SReclaimable_bytes{job=\"$job\"})\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nmax by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
@@ -760,7 +758,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "max by (instance) (  \r\n  node_memory_Cached_bytes{job=\"$job\"} \r\n  + node_memory_Buffers_bytes{job=\"$job\"} \r\n  + node_memory_SReclaimable_bytes{job=\"$job\"}\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nmax by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
@@ -774,7 +772,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "max by (instance) (node_memory_MemFree_bytes{job=\"$job\"})\r\n*\r\non(instance) group_left(nodename)\r\nmax by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
@@ -788,7 +786,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "max by (instance) (\r\n  (node_memory_SwapTotal_bytes{job=\"$job\"} \r\n  - node_memory_SwapFree_bytes{job=\"$job\"})\r\n)\r\n*\r\non(instance) group_left(nodename)\r\nmax by (instance,nodename) (node_uname_info{job=\"$job\",nodename=\"$node\"})",
@@ -802,7 +800,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(kube_node_status_allocatable{resource=\"memory\",unit=\"byte\",node=\"$node\"}) by (instance)",
@@ -815,7 +813,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by(node)(\r\n  kube_pod_container_resource_requests{resource=\"memory\",unit=\"byte\",node=\"$node\"}\r\n)",
@@ -828,7 +826,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by(node)(\r\n  kube_pod_container_resource_limits{resource=\"memory\",unit=\"byte\",node=\"$node\"}\r\n)",
@@ -929,7 +927,7 @@
         "sortBy": [
           {
             "desc": true,
-            "displayName": "Namespace"
+            "displayName": "CPU Requests"
           }
         ]
       },
@@ -1091,8 +1089,8 @@
     "list": [
       {
         "current": {
-          "text": "prometheus",
-          "value": "prometheus"
+          "text": "thanos",
+          "value": "thanos"
         },
         "includeAll": false,
         "name": "datasource",
@@ -1126,8 +1124,8 @@
       },
       {
         "current": {
-          "text": "infra",
-          "value": "infra"
+          "text": "infrastructure",
+          "value": "infrastructure"
         },
         "datasource": {
           "type": "prometheus",
@@ -1210,5 +1208,5 @@
   "timezone": "browser",
   "title": "node-exporter - kubernetes",
   "uid": "node-exporter_kuberetes",
-  "version": 3
+  "version": 5
 }
