@@ -136,7 +136,7 @@
                         "value": [
                            {
                               "title": "Drill down",
-                              "url": "/d/728bf77cc1166d2f3133bf25846876cc/kubernetes-networking-workload?${datasource:queryparam}&var-cluster=${cluster}&var-namespace=${namespace}&var-type=${__data.fields.Type}&var-workload=${__data.fields.Workload}"
+                              "url": "/d/workload-total/kubernetes-networking-workload?${datasource:queryparam}&var-cluster=${cluster}&var-namespace=${namespace}&var-type=${__data.fields.Type}&var-workload=${__data.fields.Workload}"
                            }
                         ]
                      }
@@ -782,5 +782,5 @@
    },
    "timezone": "UTC",
    "title": "Kubernetes / Networking / Namespace (Workload)",
-   "uid": "bbb2a765a623ae38130206c7d94a160f"
+   "uid": "namespace-by-workload"
 }

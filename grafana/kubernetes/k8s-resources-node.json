@@ -197,7 +197,7 @@
                         "value": [
                            {
                               "title": "Drill down to pods",
-                              "url": "/d/6581e46e4e5c7ba40a07646395ef7b23/k8s-resources-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
+                              "url": "/d/resources-pod/k8s-resources-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
                            }
                         ]
                      }
@@ -634,7 +634,7 @@
                         "value": [
                            {
                               "title": "Drill down to pods",
-                              "url": "/d/6581e46e4e5c7ba40a07646395ef7b23/k8s-resources-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
+                              "url": "/d/resources-pod/k8s-resources-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
                            }
                         ]
                      }
@@ -818,5 +818,5 @@
    },
    "timezone": "UTC",
    "title": "Kubernetes / Compute Resources / Node (Pods)",
-   "uid": "200ac8fdbfbb74b39aff88118e4d1c2c"
+   "uid": "resources-node"
 }

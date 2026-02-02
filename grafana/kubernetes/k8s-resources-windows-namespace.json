@@ -81,7 +81,7 @@
                         "value": [
                            {
                               "title": "Drill down to pods",
-                              "url": "/d/40597a704a610e936dc6ed374a7ce023/k8s-resources-windows-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
+                              "url": "/d/resources-windows-pod/k8s-resources-windows-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
                            }
                         ]
                      }
@@ -274,7 +274,7 @@
                         "value": [
                            {
                               "title": "Drill down to pods",
-                              "url": "/d/40597a704a610e936dc6ed374a7ce023/k8s-resources-windows-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
+                              "url": "/d/resources-windows-pod/k8s-resources-windows-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
                            }
                         ]
                      }
@@ -438,5 +438,5 @@
    },
    "timezone": "utc",
    "title": "Kubernetes / Compute Resources / Namespace(Windows)",
-   "uid": "490b402361724ab1d4c45666c1fa9b6f"
+   "uid": "resources-windows-namespace"
 }

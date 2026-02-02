@@ -164,7 +164,7 @@
                         "value": [
                            {
                               "title": "Drill down",
-                              "url": "/d/7a18067ce943a40ae25454675c19ff5c/kubernetes-networking-pod?${datasource:queryparam}&var-cluster=${cluster}&var-namespace=${namespace}&var-pod=${__data.fields.Pod}"
+                              "url": "/d/pod-total/kubernetes-networking-pod?${datasource:queryparam}&var-cluster=${cluster}&var-namespace=${namespace}&var-pod=${__data.fields.Pod}"
                            }
                         ]
                      }
@@ -624,5 +624,5 @@
    },
    "timezone": "UTC",
    "title": "Kubernetes / Networking / Namespace (Pods)",
-   "uid": "8b7a8b326d7a6f1f04244066368c67af"
+   "uid": "namespace-by-pod"
 }
