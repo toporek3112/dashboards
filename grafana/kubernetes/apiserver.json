@@ -822,8 +822,8 @@
          {
             "current": {
                "selected": true,
-               "text": "default",
-               "value": "default"
+               "text": "thanos",
+               "value": "thanos"
             },
             "hide": 0,
             "label": "Data source",
@@ -837,7 +837,7 @@
                "type": "prometheus",
                "uid": "${datasource}"
             },
-            "hide": 2,
+            "hide": 0,
             "label": "cluster",
             "name": "cluster",
             "query": "label_values(up{job=\"kube-apiserver\"}, cluster)",
@@ -866,5 +866,5 @@
    },
    "timezone": "UTC",
    "title": "Kubernetes / API server",
-   "uid": "apiserver"
+   "uid": "k8s-apiserver"
 }

@@ -1193,8 +1193,8 @@
          {
             "current": {
                "selected": true,
-               "text": "default",
-               "value": "default"
+               "text": "thanos",
+               "value": "thanos"
             },
             "hide": 0,
             "label": "Data source",
@@ -1208,7 +1208,7 @@
                "type": "prometheus",
                "uid": "${datasource}"
             },
-            "hide": 2,
+            "hide": 0,
             "label": "cluster",
             "name": "cluster",
             "query": "label_values(up{job=\"kubelet\"}, cluster)",
@@ -1237,5 +1237,5 @@
    },
    "timezone": "UTC",
    "title": "Kubernetes / Kubelet",
-   "uid": "kubelet"
+   "uid": "k8s-kubelet"
 }

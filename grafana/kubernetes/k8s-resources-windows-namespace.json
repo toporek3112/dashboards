@@ -81,7 +81,7 @@
                         "value": [
                            {
                               "title": "Drill down to pods",
-                              "url": "/d/resources-windows-pod/k8s-resources-windows-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
+                              "url": "/d/k8s-resources-windows-pod/k8s-resources-windows-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
                            }
                         ]
                      }
@@ -274,7 +274,7 @@
                         "value": [
                            {
                               "title": "Drill down to pods",
-                              "url": "/d/resources-windows-pod/k8s-resources-windows-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
+                              "url": "/d/k8s-resources-windows-pod/k8s-resources-windows-pod?${datasource:queryparam}&var-cluster=$cluster&var-namespace=$namespace&var-pod=${__data.fields.Pod}"
                            }
                         ]
                      }
@@ -394,8 +394,8 @@
          {
             "current": {
                "selected": true,
-               "text": "default",
-               "value": "default"
+               "text": "thanos",
+               "value": "thanos"
             },
             "hide": 0,
             "label": "Data source",
@@ -409,7 +409,7 @@
                "type": "prometheus",
                "uid": "${datasource}"
             },
-            "hide": 2,
+            "hide": 0,
             "label": "cluster",
             "name": "cluster",
             "query": "label_values(up{job=\"kubernetes-windows-exporter\"}, cluster)",
@@ -438,5 +438,5 @@
    },
    "timezone": "utc",
    "title": "Kubernetes / Compute Resources / Namespace(Windows)",
-   "uid": "resources-windows-namespace"
+   "uid": "k8s-resources-windows-namespace"
 }

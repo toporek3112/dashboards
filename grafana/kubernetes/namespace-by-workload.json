@@ -136,7 +136,7 @@
                         "value": [
                            {
                               "title": "Drill down",
-                              "url": "/d/workload-total/kubernetes-networking-workload?${datasource:queryparam}&var-cluster=${cluster}&var-namespace=${namespace}&var-type=${__data.fields.Type}&var-workload=${__data.fields.Workload}"
+                              "url": "/d/k8s-workload-total/kubernetes-networking-workload?${datasource:queryparam}&var-cluster=${cluster}&var-namespace=${namespace}&var-type=${__data.fields.Type}&var-workload=${__data.fields.Workload}"
                            }
                         ]
                      }
@@ -719,8 +719,8 @@
          {
             "current": {
                "selected": true,
-               "text": "default",
-               "value": "default"
+               "text": "thanos",
+               "value": "thanos"
             },
             "hide": 0,
             "label": "Data source",
@@ -734,10 +734,10 @@
                "type": "prometheus",
                "uid": "${datasource}"
             },
-            "hide": 2,
+            "hide": 0,
             "label": "cluster",
             "name": "cluster",
-            "query": "label_values(up{job=\"cadvisor\"}, cluster)",
+            "query": "label_values(up{job=\"kubelet\"}, cluster)",
             "refresh": 2,
             "sort": 1,
             "type": "query"
@@ -782,5 +782,5 @@
    },
    "timezone": "UTC",
    "title": "Kubernetes / Networking / Namespace (Workload)",
-   "uid": "namespace-by-workload"
+   "uid": "k8s-namespace-by-workload"
 }

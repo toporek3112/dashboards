@@ -81,7 +81,7 @@
                         "value": [
                            {
                               "title": "Drill down to pods",
-                              "url": "/d/resources-windows-namespace/k8s-resources-windows-namespace?${datasource:queryparam}&var-cluster=$cluster&var-namespace=${__data.fields.Namespace}"
+                              "url": "/d/k8s-resources-windows-namespace/k8s-resources-windows-namespace?${datasource:queryparam}&var-cluster=$cluster&var-namespace=${__data.fields.Namespace}"
                            }
                         ]
                      }
@@ -436,8 +436,8 @@
          {
             "current": {
                "selected": true,
-               "text": "default",
-               "value": "default"
+               "text": "thanos",
+               "value": "thanos"
             },
             "hide": 0,
             "label": "Data source",
@@ -451,7 +451,7 @@
                "type": "prometheus",
                "uid": "${datasource}"
             },
-            "hide": 2,
+            "hide": 0,
             "label": "cluster",
             "name": "cluster",
             "query": "label_values(up{job=\"kubernetes-windows-exporter\"}, cluster)",
@@ -493,5 +493,5 @@
    },
    "timezone": "utc",
    "title": "Kubernetes / Compute Resources / Pod(Windows)",
-   "uid": "resources-windows-pod"
+   "uid": "k8s-resources-windows-pod"
 }

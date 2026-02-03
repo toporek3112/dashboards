@@ -164,7 +164,7 @@
                         "value": [
                            {
                               "title": "Drill down",
-                              "url": "/d/pod-total/kubernetes-networking-pod?${datasource:queryparam}&var-cluster=${cluster}&var-namespace=${namespace}&var-pod=${__data.fields.Pod}"
+                              "url": "/d/k8s-pod-total/kubernetes-networking-pod?${datasource:queryparam}&var-cluster=${cluster}&var-namespace=${namespace}&var-pod=${__data.fields.Pod}"
                            }
                         ]
                      }
@@ -573,8 +573,8 @@
          {
             "current": {
                "selected": true,
-               "text": "default",
-               "value": "default"
+               "text": "thanos",
+               "value": "thanos"
             },
             "hide": 0,
             "label": "Data source",
@@ -588,10 +588,10 @@
                "type": "prometheus",
                "uid": "${datasource}"
             },
-            "hide": 2,
+            "hide": 0,
             "label": "cluster",
             "name": "cluster",
-            "query": "label_values(up{job=\"cadvisor\"}, cluster)",
+            "query": "label_values(up{job=\"kubelet\"}, cluster)",
             "refresh": 2,
             "sort": 1,
             "type": "query"
@@ -624,5 +624,5 @@
    },
    "timezone": "UTC",
    "title": "Kubernetes / Networking / Namespace (Pods)",
-   "uid": "namespace-by-pod"
+   "uid": "k8s-namespace-by-pod"
 }
