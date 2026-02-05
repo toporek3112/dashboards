@@ -1,0 +1,7 @@
+feat: new dashboard
+fix: fix broken functionality in dashboard
+chore: maintenance 
+refactor: internal change, no behavior change
+docs: documentation only
+ci: CI/CD or pipeline changes
+# comments are ignored
