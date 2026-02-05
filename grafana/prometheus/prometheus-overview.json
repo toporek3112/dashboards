@@ -54,18 +54,12 @@
   "description": "Based on https://grafana.com/grafana/dashboards/3662-prometheus-2-0-overview/",
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "gnetId": 3662,
   "graphTooltip": 1,
-  "id": 761136,
+  "id": 0,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -74,15 +68,6 @@
       },
       "id": 34,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "at a glance",
       "type": "row"
     },
@@ -114,7 +99,7 @@
             "steps": [
               {
                 "color": "rgba(245, 54, 54, 0.9)",
-                "value": null
+                "value": 0
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -154,7 +139,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -206,6 +191,9 @@
             "cellOptions": {
               "type": "auto"
             },
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -214,7 +202,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -292,7 +280,7 @@
                   "steps": [
                     {
                       "color": "rgba(255, 0, 0, 0.9)",
-                      "value": null
+                      "value": 0
                     },
                     {
                       "color": "rgba(237, 129, 40, 0.89)"
@@ -318,17 +306,9 @@
       "id": 25,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -385,7 +365,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -426,7 +406,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -474,7 +454,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -507,7 +487,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -529,10 +509,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -541,15 +517,6 @@
       },
       "id": 35,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "quick numbers",
       "type": "row"
     },
@@ -569,7 +536,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -604,7 +571,7 @@
         "textMode": "name",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -648,7 +615,7 @@
             "steps": [
               {
                 "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "value": 0
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -689,7 +656,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -736,7 +703,7 @@
             "steps": [
               {
                 "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "value": 0
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -777,7 +744,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -824,7 +791,7 @@
             "steps": [
               {
                 "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "value": 0
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -865,7 +832,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -887,10 +854,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -899,15 +862,6 @@
       },
       "id": 36,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "errors",
       "type": "row"
     },
@@ -947,6 +901,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -963,7 +918,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -990,11 +945,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1282,10 +1238,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1294,15 +1246,6 @@
       },
       "id": 37,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "up",
       "type": "row"
     },
@@ -1340,6 +1283,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1357,7 +1301,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -1384,11 +1328,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1442,6 +1387,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1458,7 +1404,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -1485,11 +1431,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1511,10 +1458,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1523,15 +1466,6 @@
       },
       "id": 38,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "series",
       "type": "row"
     },
@@ -1569,6 +1503,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1585,7 +1520,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -1612,11 +1547,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1671,6 +1607,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1686,7 +1623,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -1726,11 +1663,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1770,10 +1708,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1782,15 +1716,6 @@
       },
       "id": 39,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "appended samples",
       "type": "row"
     },
@@ -1830,6 +1755,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1846,7 +1772,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -1889,11 +1815,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -1917,10 +1844,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1929,15 +1852,6 @@
       },
       "id": 40,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "sync",
       "type": "row"
     },
@@ -1976,6 +1890,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1992,7 +1907,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -2019,11 +1934,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -2079,6 +1995,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2095,7 +2012,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -2122,11 +2039,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -2148,10 +2066,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2160,15 +2074,6 @@
       },
       "id": 41,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "scrapes",
       "type": "row"
     },
@@ -2206,6 +2111,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2221,7 +2127,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -2248,11 +2154,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -2307,6 +2214,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2324,7 +2232,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -2351,11 +2259,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -2422,10 +2331,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2434,15 +2339,6 @@
       },
       "id": 42,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "durations",
       "type": "row"
     },
@@ -2480,6 +2376,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2496,7 +2393,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -2523,11 +2420,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -2549,10 +2447,6 @@
     },
     {
       "collapsed": true,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2610,8 +2504,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2663,24 +2556,11 @@
           "type": "timeseries"
         }
       ],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "notifications",
       "type": "row"
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2689,15 +2569,6 @@
       },
       "id": 44,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "config",
       "type": "row"
     },
@@ -2735,6 +2606,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2751,7 +2623,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -2778,11 +2650,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -2836,6 +2709,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2854,7 +2728,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -2881,11 +2755,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -2907,10 +2782,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "rr7Tk9J7z"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2919,15 +2790,6 @@
       },
       "id": 45,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "garbage collection",
       "type": "row"
     },
@@ -2967,6 +2829,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2982,7 +2845,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -3009,11 +2872,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.3.3",
+      "pluginVersion": "12.3.0-18578466485",
       "targets": [
         {
           "datasource": {
@@ -3036,8 +2900,9 @@
       "type": "timeseries"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 42,
   "tags": [
     "prometheus"
   ],
@@ -3045,66 +2910,52 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "thanos",
-          "value": "thanos"
+          "text": "prometheus",
+          "value": "prometheus"
         },
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
         "name": "datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
-        "allValue": "",
         "current": {
-          "selected": true,
           "text": [
-            "kube-prometheus-kube-prome-prometheus"
+            "prometheus-prometheus"
           ],
           "value": [
-            "kube-prometheus-kube-prome-prometheus"
+            "prometheus-prometheus"
           ]
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "thanos"
+          "uid": "${datasource}"
         },
-        "definition": "label_values({job=~\".+prometheus.+\", container=\"prometheus\"},job)",
-        "hide": 0,
+        "definition": "label_values(up{container=\"prometheus\", pod!~\".*operator.*\"},job)",
         "includeAll": false,
         "multi": true,
         "name": "job",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({job=~\".+prometheus.+\", container=\"prometheus\"},job)",
+          "query": "label_values(up{container=\"prometheus\", pod!~\".*operator.*\"},job)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
         "regex": "",
-        "skipUrlSync": false,
         "sort": 1,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "type": "query"
       },
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
           "text": [
-            "kube-prometheus-kube-prome-prometheus"
+            "prometheus-prometheus"
           ],
           "value": [
-            "kube-prometheus-kube-prome-prometheus"
+            "prometheus-prometheus"
           ]
         },
         "datasource": {
@@ -3112,7 +2963,6 @@
           "uid": "${datasource}"
         },
         "definition": "label_values(up{job=\"$job\"},service)",
-        "hide": 0,
         "includeAll": false,
         "multi": true,
         "name": "service",
@@ -3124,47 +2974,17 @@
         },
         "refresh": 2,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
-  "timepicker": {
-    "refresh_intervals": [
-      "5s",
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
-    ],
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ]
-  },
+  "timepicker": {},
   "timezone": "",
   "title": "Prometheus Overview",
   "uid": "prometheus_overview",
-  "version": 4,
-  "weekStart": ""
+  "version": 2
 }
