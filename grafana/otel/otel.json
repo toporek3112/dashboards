@@ -241,7 +241,7 @@
                   {
                     "targetBlank": true,
                     "title": "advanced view for pod",
-                    "url": "/d/otel-collector_advanced/k8s-resources-workload?${datasource:queryparam}﻿﻿&var-cluster=﻿${__data.fields.cluster}﻿&var-job=$job&var-pod=﻿﻿${__data.fields.pod}﻿&var-grouping=,cluster,pod"
+                    "url": "/d/k8s-resources-pod/kubernetes-compute-resources-pod\n?orgId=1\n&from=${__from}\n&to=${__to}\n&timezone=UTC\n&var-ds_datasource=${var.ds_datasource}\n&var-cluster=${__data.fields.cluster}\n&var-namespace=monitoring\n&var-pod=${__data.fields.pod}\n&refresh=10s\n"
                   }
                 ]
               },
@@ -275,7 +275,7 @@
                   {
                     "targetBlank": true,
                     "title": "advanced view for cluster",
-                    "url": "/d/otel-collector_advanced/k8s-resources-workload?${datasource:queryparam}﻿﻿&var-cluster=﻿${__data.fields.cluster}﻿&var-job=$job&var-pod=All﻿&var-grouping=,cluster"
+                    "url": "http://grafana.nob.intern/d/k8s-resources-cluster/kubernetes-compute-resources-cluster\n?orgId=1\n&from=${__from}\n&to=${__to}\n&timezone=UTC\n&var-ds_datasource=${var.ds_datasource}\n&var-cluster=${__data.fields.cluster}\n&refresh=10s\n"
                   }
                 ]
               },
@@ -2506,11 +2506,9 @@
       {
         "allValue": ".+",
         "current": {
-          "text": [
-            "infrastructure"
-          ],
+          "text": "All",
           "value": [
-            "infrastructure"
+            "$__all"
           ]
         },
         "datasource": {
@@ -2669,25 +2667,19 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "filters": [
-          {
-            "key": "node",
-            "operator": "=",
-            "value": "zb00"
-          }
-        ],
+        "filters": [],
         "name": "Filters",
         "type": "adhoc"
       }
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "OTel Collector Simple",
   "uid": "otel-collector_simple",
-  "version": 4
+  "version": 5
 }
