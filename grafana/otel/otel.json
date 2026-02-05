@@ -254,13 +254,6 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "version"
-            },
-            "properties": []
-          },
-          {
-            "matcher": {
-              "id": "byName",
               "options": "job"
             },
             "properties": [
@@ -304,7 +297,7 @@
                   {
                     "targetBlank": true,
                     "title": "Go to node",
-                    "url": "/d/node-exporter_full-with-node-name/node-exporter-full-with-node-name?${datasource:queryparam}﻿﻿&var-job=node-exporter﻿&var-name=﻿﻿${__data.fields.node}"
+                    "url": "/d/node-exporter_full/node-exporter-full?orgId=1&from=${__from}&to=${__to}&timezone=browser&var-ds_datasource=${var.ds_datasource}&var-job=node-exporter&var-nodename=${__data.fields.node}&refresh=1m\n"
                   }
                 ]
               },
@@ -2676,19 +2669,25 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "filters": [],
+        "filters": [
+          {
+            "key": "node",
+            "operator": "=",
+            "value": "zb00"
+          }
+        ],
         "name": "Filters",
         "type": "adhoc"
       }
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "OTel Collector Simple",
   "uid": "otel-collector_simple",
-  "version": 3
+  "version": 4
 }
