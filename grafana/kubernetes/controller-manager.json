@@ -42,7 +42,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "sum(up{cluster=\"$cluster\", job=\"kube-controller-manager\"})",
+               "expr": "sum(up{cluster=\"$cluster\", job=\"apiserver\"})",
                "instant": true
             }
          ],
@@ -93,7 +93,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "sum(rate(workqueue_adds_total{cluster=\"$cluster\", job=\"kube-controller-manager\", instance=~\"$instance\"}[$__rate_interval])) by (cluster, instance, name)",
+               "expr": "sum(rate(workqueue_adds_total{cluster=\"$cluster\", job=\"apiserver\", instance=~\"$instance\"}[$__rate_interval])) by (cluster, instance, name)",
                "legendFormat": "{{cluster}} {{instance}} {{name}}"
             }
          ],
@@ -144,7 +144,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "sum(rate(workqueue_depth{cluster=\"$cluster\", job=\"kube-controller-manager\", instance=~\"$instance\"}[$__rate_interval])) by (cluster, instance, name)",
+               "expr": "sum(rate(workqueue_depth{cluster=\"$cluster\", job=\"apiserver\", instance=~\"$instance\"}[$__rate_interval])) by (cluster, instance, name)",
                "legendFormat": "{{cluster}} {{instance}} {{name}}"
             }
          ],
@@ -195,7 +195,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{cluster=\"$cluster\", job=\"kube-controller-manager\", instance=~\"$instance\"}[$__rate_interval])) by (cluster, instance, name, le))",
+               "expr": "histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{cluster=\"$cluster\", job=\"apiserver\", instance=~\"$instance\"}[$__rate_interval])) by (cluster, instance, name, le))",
                "legendFormat": "{{cluster}} {{instance}} {{name}}"
             }
          ],
@@ -246,7 +246,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "sum(rate(rest_client_requests_total{job=\"kube-controller-manager\", instance=~\"$instance\",code=~\"2..\"}[$__rate_interval]))",
+               "expr": "sum(rate(rest_client_requests_total{job=\"apiserver\", instance=~\"$instance\",code=~\"2..\"}[$__rate_interval]))",
                "legendFormat": "2xx"
             },
             {
@@ -254,7 +254,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "sum(rate(rest_client_requests_total{job=\"kube-controller-manager\", instance=~\"$instance\",code=~\"3..\"}[$__rate_interval]))",
+               "expr": "sum(rate(rest_client_requests_total{job=\"apiserver\", instance=~\"$instance\",code=~\"3..\"}[$__rate_interval]))",
                "legendFormat": "3xx"
             },
             {
@@ -262,7 +262,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "sum(rate(rest_client_requests_total{job=\"kube-controller-manager\", instance=~\"$instance\",code=~\"4..\"}[$__rate_interval]))",
+               "expr": "sum(rate(rest_client_requests_total{job=\"apiserver\", instance=~\"$instance\",code=~\"4..\"}[$__rate_interval]))",
                "legendFormat": "4xx"
             },
             {
@@ -270,7 +270,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "sum(rate(rest_client_requests_total{job=\"kube-controller-manager\", instance=~\"$instance\",code=~\"5..\"}[$__rate_interval]))",
+               "expr": "sum(rate(rest_client_requests_total{job=\"apiserver\", instance=~\"$instance\",code=~\"5..\"}[$__rate_interval]))",
                "legendFormat": "5xx"
             }
          ],
@@ -321,7 +321,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{cluster=\"$cluster\", job=\"kube-controller-manager\", instance=~\"$instance\", verb=\"POST\"}[$__rate_interval])) by (verb, le))",
+               "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{cluster=\"$cluster\", job=\"apiserver\", instance=~\"$instance\", verb=\"POST\"}[$__rate_interval])) by (verb, le))",
                "legendFormat": "{{verb}}"
             }
          ],
@@ -372,7 +372,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{cluster=\"$cluster\", job=\"kube-controller-manager\", instance=~\"$instance\", verb=\"GET\"}[$__rate_interval])) by (verb, le))",
+               "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{cluster=\"$cluster\", job=\"apiserver\", instance=~\"$instance\", verb=\"GET\"}[$__rate_interval])) by (verb, le))",
                "legendFormat": "{{verb}}"
             }
          ],
@@ -423,7 +423,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "process_resident_memory_bytes{cluster=\"$cluster\", job=\"kube-controller-manager\",instance=~\"$instance\"}",
+               "expr": "process_resident_memory_bytes{cluster=\"$cluster\", job=\"apiserver\",instance=~\"$instance\"}",
                "legendFormat": "{{instance}}"
             }
          ],
@@ -474,7 +474,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "rate(process_cpu_seconds_total{cluster=\"$cluster\", job=\"kube-controller-manager\",instance=~\"$instance\"}[$__rate_interval])",
+               "expr": "rate(process_cpu_seconds_total{cluster=\"$cluster\", job=\"apiserver\",instance=~\"$instance\"}[$__rate_interval])",
                "legendFormat": "{{instance}}"
             }
          ],
@@ -525,7 +525,7 @@
                   "type": "prometheus",
                   "uid": "${datasource}"
                },
-               "expr": "go_goroutines{cluster=\"$cluster\", job=\"kube-controller-manager\",instance=~\"$instance\"}",
+               "expr": "go_goroutines{cluster=\"$cluster\", job=\"apiserver\",instance=~\"$instance\"}",
                "legendFormat": "{{instance}}"
             }
          ],
@@ -561,7 +561,7 @@
             "hide": 0,
             "label": "cluster",
             "name": "cluster",
-            "query": "label_values(up{job=\"kube-controller-manager\"}, cluster)",
+            "query": "label_values(up{job=\"apiserver\"}, cluster)",
             "refresh": 2,
             "sort": 1,
             "type": "query"
@@ -575,7 +575,7 @@
             "includeAll": true,
             "label": "instance",
             "name": "instance",
-            "query": "label_values(up{cluster=\"$cluster\", job=\"kube-controller-manager\"}, instance)",
+            "query": "label_values(up{cluster=\"$cluster\", job=\"apiserver\"}, instance)",
             "refresh": 2,
             "sort": 1,
             "type": "query"
