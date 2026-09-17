@@ -566,6 +566,20 @@
         {
           "datasource": {
             "type": "prometheus",
+            "uid": "thanos"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(node_namespace_pod_container:container_memory_working_set_bytes{cluster=\"$cluster\",node=~\"$node\"}) by (pod)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "",
+          "range": false,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
             "uid": "${datasource}"
           },
           "editorMode": "code",
@@ -647,18 +661,32 @@
               "Time 1": 1,
               "Time 2": 3,
               "Time 3": 5,
-              "Time 4": 7,
+              "Time 4": 8,
               "Time 5": 9,
+              "Time 6": 25,
+              "Value": 6,
               "Value #A": 2,
               "Value #B": 4,
-              "Value #C": 6,
-              "Value #D": 8,
+              "Value #C": 7,
               "Value #E": 10,
-              "namespace": 11,
-              "pod": 0
+              "Value #F": 24,
+              "cluster": 12,
+              "container": 13,
+              "endpoint": 14,
+              "instance": 15,
+              "job": 16,
+              "namespace 1": 11,
+              "namespace 2": 17,
+              "node": 18,
+              "phase": 19,
+              "pod": 0,
+              "prometheus": 20,
+              "prometheus_replica": 21,
+              "service": 22,
+              "uid": 23
             },
             "renameByName": {
-              "Value": "Status",
+              "Value": "MEM Usage",
               "Value #A": "CPU Usage",
               "Value #B": "CPU Requests",
               "Value #C": "MEM Requests",
@@ -1157,9 +1185,7 @@
       {
         "allValue": ".+",
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1186,13 +1212,13 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-2d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "node-exporter - kubernetes",
   "uid": "node-exporter_kuberetes",
-  "version": 1,
+  "version": 3,
   "weekStart": ""
 }
