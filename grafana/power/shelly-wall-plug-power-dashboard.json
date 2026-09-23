@@ -305,6 +305,7 @@
         "y": 5
       },
       "id": 6,
+      "interval": "10s",
       "options": {
         "legend": {
           "calcs": [],
@@ -725,6 +726,7 @@
         "y": 18
       },
       "id": 13,
+      "interval": "10s",
       "options": {
         "legend": {
           "calcs": [],
@@ -836,6 +838,7 @@
         "y": 27
       },
       "id": 14,
+      "interval": "10s",
       "options": {
         "legend": {
           "calcs": [],
@@ -935,6 +938,7 @@
         "y": 27
       },
       "id": 15,
+      "interval": "10s",
       "options": {
         "legend": {
           "calcs": [],
@@ -1034,6 +1038,7 @@
         "y": 35
       },
       "id": 16,
+      "interval": "10s",
       "options": {
         "legend": {
           "calcs": [],
@@ -1133,6 +1138,7 @@
         "y": 35
       },
       "id": 18,
+      "interval": "10s",
       "options": {
         "legend": {
           "calcs": [],
@@ -1177,9 +1183,7 @@
     "list": [
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1208,13 +1212,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Shelly · Power & Energy",
-  "uid": "shelly-wall-plug-power",
-  "version": 3,
+  "uid": "shelly-wall-plugs",
+  "version": 2,
   "weekStart": ""
 }
