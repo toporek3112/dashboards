@@ -15,7 +15,7 @@
       }
     ]
   },
-  "description": "Current power usage in W and energy used over the selected range in fixed kWh, plus current, voltage, frequency and internal temperature. Energy queries assume loads do not return energy through the plug.",
+  "description": "Shelly power dashboard optimized for LLM benchmarks. Shows instantaneous power, selected-range energy, rolling 5-minute energy, electrical readings and internal plug temperature. Energy is derived from sampled active power.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
@@ -635,7 +635,7 @@
         "type": "prometheus",
         "uid": "thanos"
       },
-      "description": "Power (W) on the left axis; internal plug temperature (°C) on the right axis.",
+      "description": "Instantaneous power (W) on the left axis and rolling 5-, 10- and 60-minute energy (Wh) on the right axis. Rolling windows overlap; the 60-minute query is disabled by default.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -693,12 +693,12 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Plug temperature"
+              "options": "Rolling 5-minute energy"
             },
             "properties": [
               {
                 "id": "unit",
-                "value": "celsius"
+                "value": "suffix:Wh"
               },
               {
                 "id": "custom.axisPlacement",
@@ -706,12 +706,66 @@
               },
               {
                 "id": "custom.axisLabel",
-                "value": "°C"
+                "value": "Wh"
               },
               {
                 "id": "color",
                 "value": {
                   "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Rolling 10-minute energy"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:Wh"
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Wh"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Rolling 1-hour energy"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:Wh"
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Wh"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
                   "mode": "fixed"
                 }
               }
@@ -760,14 +814,38 @@
             "uid": "thanos"
           },
           "editorMode": "code",
-          "expr": "max(shelly_temperature_celsius{sensor=\"$shelly_plug\"})",
+          "expr": "avg_over_time(\n  (\n    max by (sensor) (\n      shelly_power_watts{sensor=\"$shelly_plug\"}\n    )\n  )[5m:$__interval]\n) * 5 / 60",
           "instant": false,
-          "legendFormat": "Plug temperature",
+          "legendFormat": "Rolling 5-minute energy",
           "range": true,
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "thanos"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(\n  (\n    max by (sensor) (\n      shelly_power_watts{sensor=\"$shelly_plug\"}\n    )\n  )[10m:$__interval]\n) * 10 / 60",
+          "instant": false,
+          "legendFormat": "Rolling 10-minute energy",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "thanos"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(\n  (\n    max by (sensor) (\n      shelly_power_watts{sensor=\"$shelly_plug\"}\n    )\n  )[1h:$__interval]\n) * 60 / 60",
+          "instant": false,
+          "legendFormat": "Rolling 1-hour energy",
+          "range": true,
+          "refId": "D"
         }
       ],
-      "title": "Active power & internal plug temperature",
+      "title": "Active power & rolling energy",
       "type": "timeseries"
     },
     {
@@ -1075,11 +1153,11 @@
         "type": "prometheus",
         "uid": "thanos"
       },
-      "description": "Energy used during the previous hour at each point. The windows overlap; this is a rolling value rather than separate hourly totals.",
+      "description": "Internal plug temperature over time; this is not the room or GPU temperature.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "yellow",
+            "fixedColor": "orange",
             "mode": "fixed"
           },
           "custom": {
@@ -1116,7 +1194,7 @@
               "mode": "off"
             }
           },
-          "decimals": 4,
+          "decimals": 1,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -1127,7 +1205,7 @@
               }
             ]
           },
-          "unit": "suffix:kWh"
+          "unit": "celsius"
         },
         "overrides": []
       },
@@ -1160,14 +1238,14 @@
             "uid": "thanos"
           },
           "editorMode": "code",
-          "expr": "avg_over_time(\n  (\n    max by (sensor) (\n      shelly_power_watts{\n        sensor=\"$shelly_plug\"\n      }\n    )\n  )[1h:$__interval]\n) / 1000",
+          "expr": "max(shelly_temperature_celsius{sensor=\"$shelly_plug\"})",
           "instant": false,
-          "legendFormat": "Energy used",
+          "legendFormat": "Plug temperature",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Energy used · rolling 1 hour (kWh)",
+      "title": "Internal plug temperature",
       "type": "timeseries"
     }
   ],
@@ -1177,13 +1255,17 @@
   "tags": [
     "shelly",
     "energy",
-    "home"
+    "home",
+    "llm",
+    "benchmark"
   ],
   "templating": {
     "list": [
       {
         "current": {
-          "text": "All",
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
@@ -1219,6 +1301,6 @@
   "timezone": "browser",
   "title": "Shelly · Power & Energy",
   "uid": "shelly-wall-plugs",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }
