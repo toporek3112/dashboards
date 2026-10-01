@@ -1250,7 +1250,7 @@
     }
   ],
   "preload": false,
-  "refresh": "5s",
+  "refresh": "",
   "schemaVersion": 42,
   "tags": [
     "shelly",
@@ -1263,9 +1263,7 @@
     "list": [
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1294,13 +1292,13 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now/M",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Shelly · Power & Energy",
   "uid": "shelly-wall-plugs",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }
