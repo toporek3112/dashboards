@@ -24,16 +24,13 @@
   "description": "This dashboard provides a resource usage overview of the Thanos components Querier, Query-Frontend, Compacter and Store.\r\n\r\nIt includes CPU and Memory requests, limits and usage. In addition, the last termination reason is plotted and the cache hit ratio is available.",
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "gnetId": 12937,
   "graphTooltip": 1,
-  "id": 48710,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 5,
@@ -51,16 +48,8 @@
         "content": "![logo](https://repository-images.githubusercontent.com/109162639/97e49180-661b-11e9-9882-fdc44b74debd)",
         "mode": "markdown"
       },
-      "pluginVersion": "11.2.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
+      "pluginVersion": "12.4.2",
+      "title": "",
       "type": "text"
     },
     {
@@ -76,7 +65,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           }
@@ -108,7 +97,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -128,10 +117,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -140,15 +125,6 @@
       },
       "id": 8,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Thanos / Query",
       "type": "row"
     },
@@ -188,6 +164,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -203,7 +180,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -301,11 +278,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -314,8 +292,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(irate(container_cpu_usage_seconds_total{namespace=\"monitoring\",container=\"query\"}[$__rate_interval])) by (pod)",
-          "hide": false,
+          "expr": "sum(irate(container_cpu_usage_seconds_total{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"query\"}[$__rate_interval])) by (pod)",
           "interval": "",
           "legendFormat": "usage: {{pod}}",
           "range": true,
@@ -327,8 +304,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",container=\"query\",resource=\"cpu\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"query\",resource=\"cpu\"})",
           "instant": false,
           "legendFormat": "limits",
           "range": true,
@@ -340,8 +316,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",container=\"query\",resource=\"cpu\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"query\",resource=\"cpu\"})",
           "instant": false,
           "legendFormat": "requests",
           "range": true,
@@ -387,6 +362,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -402,7 +378,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -500,11 +476,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -513,7 +490,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(max_over_time(container_memory_working_set_bytes{namespace=\"monitoring\",container=\"query\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(max_over_time(container_memory_working_set_bytes{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"query\"}[$__rate_interval])) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "range": true,
@@ -525,8 +502,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",container=\"query\",resource=\"memory\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"query\",resource=\"memory\"})",
           "instant": false,
           "legendFormat": "limits",
           "range": true,
@@ -538,8 +514,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",container=\"query\",resource=\"memory\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"query\",resource=\"memory\"})",
           "instant": false,
           "legendFormat": "requests",
           "range": true,
@@ -562,7 +537,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -605,17 +580,19 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "kube_pod_container_status_last_terminated_reason{namespace=\"monitoring\",pod=~\"thanos-query-.*\"} != 0",
+          "expr": "kube_pod_container_status_last_terminated_reason{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"query\"} != 0",
           "interval": "",
           "legendFormat": "{{reason}} - {{pod}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -623,11 +600,7 @@
       "type": "stat"
     },
     {
-      "collapsed": true,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -635,510 +608,8 @@
         "y": 14
       },
       "id": 33,
-      "panels": [
-        {
-          "datasource": {
-            "default": false,
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "graph": false,
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/limit/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "#F2495C",
-                      "mode": "fixed"
-                    }
-                  },
-                  {
-                    "id": "custom.fillOpacity",
-                    "value": 0
-                  },
-                  {
-                    "id": "custom.lineWidth",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.lineStyle",
-                    "value": {
-                      "dash": [
-                        10,
-                        10
-                      ],
-                      "fill": "dash"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/request/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "orange",
-                      "mode": "fixed"
-                    }
-                  },
-                  {
-                    "id": "custom.fillOpacity",
-                    "value": 0
-                  },
-                  {
-                    "id": "custom.lineWidth",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.lineStyle",
-                    "value": {
-                      "dash": [
-                        10,
-                        10
-                      ],
-                      "fill": "dash"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 10,
-            "x": 0,
-            "y": 32
-          },
-          "id": 29,
-          "interval": "10s",
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "8.3.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "editorMode": "code",
-              "expr": "sum(irate(container_cpu_usage_seconds_total{container=\"query-frontend\",pod=~\"thanos.*\"}[$__rate_interval])) by (pod)",
-              "interval": "",
-              "legendFormat": "{{pod}}",
-              "range": true,
-              "refId": "B"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "editorMode": "code",
-              "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",container=\"query-frontend\",pod=~\"thanos.*\",resource=\"cpu\"})",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "limits",
-              "range": true,
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "editorMode": "code",
-              "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",container=\"query-frontend\",pod=~\"thanos.*\",resource=\"cpu\"})",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "requests",
-              "range": true,
-              "refId": "C"
-            }
-          ],
-          "title": "CPU Core Usage vs. Requested",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "default": false,
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "graph": false,
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "bytes"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/limit/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "#F2495C",
-                      "mode": "fixed"
-                    }
-                  },
-                  {
-                    "id": "custom.fillOpacity",
-                    "value": 0
-                  },
-                  {
-                    "id": "custom.lineWidth",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.lineStyle",
-                    "value": {
-                      "dash": [
-                        10,
-                        10
-                      ],
-                      "fill": "dash"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/request/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "orange",
-                      "mode": "fixed"
-                    }
-                  },
-                  {
-                    "id": "custom.fillOpacity",
-                    "value": 0
-                  },
-                  {
-                    "id": "custom.lineWidth",
-                    "value": 2
-                  },
-                  {
-                    "id": "custom.lineStyle",
-                    "value": {
-                      "dash": [
-                        10,
-                        10
-                      ],
-                      "fill": "dash"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 10,
-            "x": 10,
-            "y": 32
-          },
-          "id": 30,
-          "interval": "10s",
-          "options": {
-            "legend": {
-              "calcs": [
-                "max",
-                "mean"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "8.3.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "editorMode": "code",
-              "expr": "sum(max_over_time(container_memory_working_set_bytes{container=~\"query-frontend.*\",pod=~\"thanos.*\"}[$__rate_interval])) by (pod)",
-              "interval": "",
-              "legendFormat": "{{pod}}",
-              "range": true,
-              "refId": "B"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "editorMode": "code",
-              "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",container=~\"query-frontend.*\",pod=~\"thanos.*\",resource=\"memory\"})",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "limits",
-              "range": true,
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "editorMode": "code",
-              "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",container=~\"query-frontend.*\",pod=~\"thanos.*\",resource=\"memory\"})",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "requests",
-              "range": true,
-              "refId": "C"
-            }
-          ],
-          "title": "Memory Usage v. Limit",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 4,
-            "x": 20,
-            "y": 32
-          },
-          "id": 31,
-          "links": [
-            {
-              "targetBlank": true,
-              "title": "Pod Logs",
-              "url": "/explore?schemaVersion=1&panes=%7B%22t5t%22:%7B%22datasource%22:%22loki%22,%22queries%22:%5B%7B%22refId%22:%22A%22,%22expr%22:%22%7Bk8s_cluster_name%3D~%5C%22cdc-.%2A-infra%5C%22,%20k8s_namespace_name%3D%5C%22monitoring%5C%22,%20k8s_pod_name%3D~%5C%22thanos-query-frontend-.%2A%5C%22,k8s_container_name%3D%5C%22query-frontend%5C%22%7D%20%5Cr%5Cn%7C%20json%22,%22queryType%22:%22range%22,%22datasource%22:%7B%22type%22:%22loki%22,%22uid%22:%22loki%22%7D,%22editorMode%22:%22code%22%7D%5D,%22range%22:%7B%22from%22:%22now-1h%22,%22to%22:%22now%22%7D%7D%7D&orgId=1"
-            }
-          ],
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "mean"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "text": {},
-            "textMode": "value_and_name",
-            "wideLayout": true
-          },
-          "pluginVersion": "11.2.2",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "expr": "kube_pod_container_status_last_terminated_reason{pod=~\"thanos-query-frontend.*\"} != 0",
-              "interval": "",
-              "legendFormat": "{{reason}} - {{pod}}",
-              "refId": "A"
-            }
-          ],
-          "title": "Last Terminated Reason",
-          "type": "stat"
-        }
-      ],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
-      "title": "Thanos / Query Frontend",
-      "type": "row"
-    },
-    {
-      "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 15
-      },
-      "id": 6,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
-      "title": "Thanos / Store",
+      "title": "Thanos / Query Frontend",
       "type": "row"
     },
     {
@@ -1177,6 +648,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1192,10 +664,15 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": [
           {
@@ -1270,9 +747,10 @@
         "h": 8,
         "w": 10,
         "x": 0,
-        "y": 16
+        "y": 15
       },
-      "id": 17,
+      "id": 29,
+      "interval": "10s",
       "options": {
         "legend": {
           "calcs": [
@@ -1284,11 +762,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1296,8 +775,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(irate(container_cpu_usage_seconds_total{namespace=\"monitoring\",pod=~\"thanos-storegateway-.*\",container=\"storegateway\"}[$__rate_interval])) by (pod)",
-          "hide": false,
+          "expr": "sum(irate(container_cpu_usage_seconds_total{container=\"query-frontend\",pod=~\"thanos.*\"}[$__rate_interval])) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "range": true,
@@ -1309,8 +787,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-storegateway-.*\",container=\"storegateway\",resource=\"cpu\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"query-frontend\",resource=\"cpu\"})",
           "instant": false,
           "legendFormat": "limits",
           "range": true,
@@ -1322,10 +799,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-storegateway-.*\",container=\"storegateway\",resource=\"cpu\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"query-frontend\",resource=\"cpu\"})",
           "instant": false,
-          "interval": "",
           "legendFormat": "requests",
           "range": true,
           "refId": "C"
@@ -1370,6 +845,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1385,7 +861,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -1468,9 +944,9 @@
         "h": 8,
         "w": 10,
         "x": 10,
-        "y": 16
+        "y": 15
       },
-      "id": 18,
+      "id": 30,
       "interval": "10s",
       "options": {
         "legend": {
@@ -1483,11 +959,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1495,7 +972,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(max_over_time(container_memory_working_set_bytes{namespace=\"monitoring\",pod=~\"thanos-storegateway-.*\",container=\"storegateway\"}[$__interval])) by (pod)",
+          "expr": "sum(max_over_time(container_memory_working_set_bytes{container=\"query-frontend\",pod=~\"thanos.*\"}[$__rate_interval])) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "range": true,
@@ -1507,8 +984,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-storegateway-.*\",container=\"storegateway\",resource=\"memory\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"query-frontend\",resource=\"memory\"})",
           "instant": false,
           "legendFormat": "limits",
           "range": true,
@@ -1520,8 +996,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-storegateway-.*\",container=\"storegateway\",resource=\"memory\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"query-frontend\",resource=\"memory\"})",
           "instant": false,
           "legendFormat": "requests",
           "range": true,
@@ -1544,7 +1019,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -1559,14 +1034,14 @@
         "h": 8,
         "w": 4,
         "x": 20,
-        "y": 16
+        "y": 15
       },
-      "id": 27,
+      "id": 31,
       "links": [
         {
           "targetBlank": true,
           "title": "Pod Logs",
-          "url": "/explore?schemaVersion=1&panes=%7B%22t5t%22:%7B%22datasource%22:%22loki%22,%22queries%22:%5B%7B%22refId%22:%22A%22,%22expr%22:%22%7Bk8s_cluster_name%3D~%5C%22cdc-.%2A-infra%5C%22,%20k8s_namespace_name%3D%5C%22monitoring%5C%22,%20k8s_pod_name%3D~%5C%22thanos-storegateway-.%2A%5C%22,k8s_container_name%3D%5C%22storegateway%5C%22%7D%20%5Cr%5Cn%7C%20json%22,%22queryType%22:%22range%22,%22datasource%22:%7B%22type%22:%22loki%22,%22uid%22:%22loki%22%7D,%22editorMode%22:%22code%22%7D%5D,%22range%22:%7B%22from%22:%22now-1h%22,%22to%22:%22now%22%7D%7D%7D&orgId=1"
+          "url": "/explore?schemaVersion=1&panes=%7B%22t5t%22:%7B%22datasource%22:%22loki%22,%22queries%22:%5B%7B%22refId%22:%22A%22,%22expr%22:%22%7Bk8s_cluster_name%3D~%5C%22cdc-.%2A-infra%5C%22,%20k8s_namespace_name%3D%5C%22monitoring%5C%22,%20k8s_pod_name%3D~%5C%22thanos-query-frontend-.%2A%5C%22,k8s_container_name%3D%5C%22query-frontend%5C%22%7D%20%5Cr%5Cn%7C%20json%22,%22queryType%22:%22range%22,%22datasource%22:%7B%22type%22:%22loki%22,%22uid%22:%22loki%22%7D,%22editorMode%22:%22code%22%7D%5D,%22range%22:%7B%22from%22:%22now-1h%22,%22to%22:%22now%22%7D%7D%7D&orgId=1"
         }
       ],
       "options": {
@@ -1587,16 +1062,18 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "kube_pod_container_status_last_terminated_reason{namespace=\"monitoring\",pod=~\"thanos-storegateway-.*\"} != 0",
+          "editorMode": "code",
+          "expr": "kube_pod_container_status_last_terminated_reason{pod=~\"thanos-.*\",container=\"query-frontend\"} != 0",
           "interval": "",
           "legendFormat": "{{reason}} - {{pod}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1604,12 +1081,24 @@
       "type": "stat"
     },
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 6,
+      "panels": [],
+      "title": "Thanos / Store",
+      "type": "row"
+    },
+    {
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1640,6 +1129,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1655,7 +1145,470 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/limit/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#F2495C",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/request/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 10,
+        "x": 0,
+        "y": 24
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum(irate(container_cpu_usage_seconds_total{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"storegateway\"}[$__rate_interval])) by (pod)",
+          "interval": "",
+          "legendFormat": "{{pod}}",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"storegateway\",resource=\"cpu\"})",
+          "instant": false,
+          "legendFormat": "limits",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"storegateway\",resource=\"cpu\"})",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "requests",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "CPU Core Usage vs. Requested",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": false,
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/limit/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#F2495C",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/request/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 10,
+        "x": 10,
+        "y": 24
+      },
+      "id": 18,
+      "interval": "10s",
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum(max_over_time(container_memory_working_set_bytes{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"storegateway\"}[$__interval])) by (pod)",
+          "interval": "",
+          "legendFormat": "{{pod}}",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"storegateway\",resource=\"memory\"})",
+          "instant": false,
+          "legendFormat": "limits",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"storegateway\",resource=\"memory\"})",
+          "instant": false,
+          "legendFormat": "requests",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Memory Usage v. Limit",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 24
+      },
+      "id": 27,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Pod Logs",
+          "url": "/explore?schemaVersion=1&panes=%7B%22t5t%22:%7B%22datasource%22:%22loki%22,%22queries%22:%5B%7B%22refId%22:%22A%22,%22expr%22:%22%7Bk8s_cluster_name%3D~%5C%22cdc-.%2A-infra%5C%22,%20k8s_namespace_name%3D%5C%22monitoring%5C%22,%20k8s_pod_name%3D~%5C%22thanos-storegateway-.%2A%5C%22,k8s_container_name%3D%5C%22storegateway%5C%22%7D%20%5Cr%5Cn%7C%20json%22,%22queryType%22:%22range%22,%22datasource%22:%7B%22type%22:%22loki%22,%22uid%22:%22loki%22%7D,%22editorMode%22:%22code%22%7D%5D,%22range%22:%7B%22from%22:%22now-1h%22,%22to%22:%22now%22%7D%7D%7D&orgId=1"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "kube_pod_container_status_last_terminated_reason{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"storegateway\"} != 0",
+          "interval": "",
+          "legendFormat": "{{reason}} - {{pod}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Last Terminated Reason",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": false,
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1671,7 +1624,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 24
+        "y": 32
       },
       "id": 37,
       "options": {
@@ -1682,11 +1635,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1740,6 +1694,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1755,7 +1710,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -1771,7 +1726,7 @@
         "h": 8,
         "w": 7,
         "x": 8,
-        "y": 24
+        "y": 32
       },
       "id": 35,
       "options": {
@@ -1782,11 +1737,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1839,6 +1795,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1854,7 +1811,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -1870,7 +1827,7 @@
         "h": 8,
         "w": 9,
         "x": 15,
-        "y": 24
+        "y": 32
       },
       "id": 39,
       "options": {
@@ -1881,11 +1838,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1903,27 +1861,14 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 40
       },
       "id": 7,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Thanos / Compact",
       "type": "row"
     },
@@ -1963,6 +1908,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1978,7 +1924,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -2061,7 +2007,7 @@
         "h": 8,
         "w": 10,
         "x": 0,
-        "y": 33
+        "y": 41
       },
       "id": 15,
       "interval": "1m",
@@ -2076,11 +2022,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -2089,7 +2036,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(irate(container_cpu_usage_seconds_total{namespace=\"monitoring\",pod=~\"thanos-compactor-.*\",container=\"compactor\"}[$__interval])) by (pod)",
+          "expr": "sum(irate(container_cpu_usage_seconds_total{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"compactor\"}[$__interval])) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "range": true,
@@ -2101,8 +2048,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-compactor-.*\",container=\"compactor\",resource=\"cpu\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"compactor\",resource=\"cpu\"})",
           "instant": false,
           "legendFormat": "limits",
           "range": true,
@@ -2114,8 +2060,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-compactor-.*\",container=\"compactor\",resource=\"cpu\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"compactor\",resource=\"cpu\"})",
           "instant": false,
           "legendFormat": "requests",
           "range": true,
@@ -2161,6 +2106,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -2176,7 +2122,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -2259,7 +2205,7 @@
         "h": 8,
         "w": 10,
         "x": 10,
-        "y": 33
+        "y": 41
       },
       "id": 16,
       "interval": "1m",
@@ -2274,11 +2220,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -2286,7 +2233,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(max_over_time(container_memory_working_set_bytes{namespace=\"monitoring\",pod=~\"thanos-compactor-.*\",container=\"compactor\"}[$__interval])) by (pod)",
+          "expr": "sum(max_over_time(container_memory_working_set_bytes{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"compactor\"}[$__interval])) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "range": true,
@@ -2298,8 +2245,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-compactor-.*\",container=\"compactor\",resource=\"memory\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_limits{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"compactor\",resource=\"memory\"})",
           "instant": false,
           "legendFormat": "limits",
           "range": true,
@@ -2311,8 +2257,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-compactor-.*\",container=\"compactor\",resource=\"memory\"})",
-          "hide": false,
+          "expr": "max(kube_pod_container_resource_requests{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"compactor\",resource=\"memory\"})",
           "instant": false,
           "legendFormat": "requests",
           "range": true,
@@ -2335,7 +2280,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -2350,7 +2295,7 @@
         "h": 8,
         "w": 4,
         "x": 20,
-        "y": 33
+        "y": 41
       },
       "id": 28,
       "links": [
@@ -2378,16 +2323,18 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.2",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "kube_pod_container_status_last_terminated_reason{namespace=\"monitoring\",pod=~\"thanos-compactor-.*\",} != 0",
+          "editorMode": "code",
+          "expr": "kube_pod_container_status_last_terminated_reason{namespace=\"monitoring\",pod=~\"thanos-.*\",container=\"compactor\"} != 0",
           "interval": "",
           "legendFormat": "{{reason}} - {{pod}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -2395,27 +2342,23 @@
       "type": "stat"
     }
   ],
+  "preload": false,
   "refresh": "10s",
-  "schemaVersion": 39,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": true,
           "text": "prometheus",
           "value": "prometheus"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       }
     ]
@@ -2437,9 +2380,9 @@
       "1d"
     ]
   },
-  "timezone": "",
-  "title": "Thanos / Overview",
+  "timezone": "browser",
+  "title": "Thanos Overview",
   "uid": "thanos_overview",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
