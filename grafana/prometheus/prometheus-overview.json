@@ -55,7 +55,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 0,
   "links": [],
   "panels": [
     {
@@ -139,7 +138,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -165,7 +164,6 @@
           },
           "editorMode": "code",
           "expr": "avg(\r\n  avg_over_time(\r\n    up{\r\n      job=~\"$job\",\r\n      service=~\"$service\",\r\n      container=\"prometheus\"\r\n    }[$__range]\r\n  )\r\n)",
-          "hide": false,
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -308,7 +306,7 @@
         "cellHeight": "sm",
         "showHeader": true
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -406,7 +404,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -487,7 +485,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -571,7 +569,7 @@
         "textMode": "name",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -656,7 +654,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -744,7 +742,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -832,7 +830,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -950,7 +948,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1333,7 +1331,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1436,7 +1434,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1552,7 +1550,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1668,7 +1666,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1820,7 +1818,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1939,7 +1937,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1949,7 +1947,6 @@
           "exemplar": false,
           "expr": "sum(prometheus_target_scrape_pool_sync_total{job=~\"$job\", service=~\"$service\"}) by (scrape_job)",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{scrape_job}}",
@@ -2044,7 +2041,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -2159,19 +2156,21 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": false,
           "expr": "scrape_duration_seconds{job=~\"$job\", service=~\"$service\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{service}}",
+          "legendFormat": "{{container}}",
+          "range": true,
           "refId": "A",
           "step": 4
         }
@@ -2264,7 +2263,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -2288,7 +2287,6 @@
           "exemplar": false,
           "expr": "sum(prometheus_target_scrapes_sample_duplicate_timestamp_total{job=~\"$job\", service=~\"$service\"})",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "duplicate timestamp",
@@ -2303,7 +2301,6 @@
           "exemplar": false,
           "expr": "sum(prometheus_target_scrapes_sample_out_of_bounds_total{job=~\"$job\", service=~\"$service\"})",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "out of bounds",
@@ -2318,7 +2315,6 @@
           "exemplar": false,
           "expr": "sum(prometheus_target_scrapes_sample_out_of_order_total{job=~\"$job\", service=~\"$service\"}) ",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "out of order",
@@ -2425,7 +2421,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -2655,7 +2651,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -2760,7 +2756,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -2877,7 +2873,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18578466485",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -2945,6 +2941,7 @@
         },
         "refresh": 2,
         "regex": "",
+        "regexApplyTo": "value",
         "sort": 1,
         "type": "query"
       },
@@ -2974,6 +2971,7 @@
         },
         "refresh": 2,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
@@ -2983,8 +2981,9 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "browser",
   "title": "Prometheus Overview",
   "uid": "prometheus_overview",
-  "version": 2
+  "version": 2,
+  "weekStart": ""
 }
