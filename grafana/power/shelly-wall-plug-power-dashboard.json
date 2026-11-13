@@ -15,7 +15,7 @@
       }
     ]
   },
-  "description": "Shelly power dashboard optimized for LLM benchmarks. Shows instantaneous power, selected-range energy, rolling 5-minute energy, electrical readings and internal plug temperature. Energy is derived from sampled active power.",
+  "description": "Shelly power dashboard optimized for LLM benchmarks. Shows instantaneous power, approximate selected-range energy based on one-minute power samples, rolling 5-/10-/60-minute energy, electrical readings and internal plug temperature. Missing measurements are not extrapolated over the whole selected range.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
@@ -107,7 +107,7 @@
         "type": "prometheus",
         "uid": "thanos"
       },
-      "description": "Energy used by the selected plugs over the dashboard time range, converted from Wh to kWh. Assumes these loads do not return energy.",
+      "description": "Estimated energy from available one-minute averages of active power. Minutes without samples do not contribute; gaps within a minute and the selected-range boundaries introduce approximation. Not a device-measured cumulative energy counter.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -160,7 +160,7 @@
             "uid": "thanos"
           },
           "editorMode": "code",
-          "expr": "sum(\n  avg_over_time(\n    (\n      max by (sensor) (\n        shelly_power_watts{\n          sensor=~\"${shelly_plug:regex}\"\n        }\n      )\n    )[$__range:$__interval]\n  )\n) * $__range_s / 3600000",
+          "expr": "sum(\n  sum_over_time(\n    (\n      max by (sensor) (\n        avg_over_time(\n          shelly_power_watts{sensor=~\"${shelly_plug:regex}\"}[1m]\n        )\n      )\n    )[$__range:1m]\n  ) / 60000\n)",
           "instant": true,
           "legendFormat": "",
           "range": false,
@@ -249,6 +249,18 @@
           "color": {
             "mode": "palette-classic"
           },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "watt",
           "custom": {
             "axisBorderShow": false,
             "axisCenteredZero": false,
@@ -282,19 +294,7 @@
             "thresholdsStyle": {
               "mode": "off"
             }
-          },
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "watt"
+          }
         },
         "overrides": []
       },
@@ -342,7 +342,7 @@
         "type": "prometheus",
         "uid": "thanos"
       },
-      "description": "Energy used by each selected plug over the dashboard time range, converted from Wh to kWh. Assumes these loads do not return energy.",
+      "description": "Estimated energy from available one-minute averages of active power. Minutes without samples do not contribute; gaps within a minute and the selected-range boundaries introduce approximation. Not a device-measured cumulative energy counter.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -402,7 +402,7 @@
             "uid": "thanos"
           },
           "editorMode": "code",
-          "expr": "avg_over_time(\n  (\n    max by (sensor) (\n      shelly_power_watts{\n        sensor=~\"${shelly_plug:regex}\"\n      }\n    )\n  )[$__range:$__interval]\n) * $__range_s / 3600000",
+          "expr": "sum_over_time(\n  (\n    max by (sensor) (\n      avg_over_time(\n        shelly_power_watts{sensor=~\"${shelly_plug:regex}\"}[1m]\n      )\n    )\n  )[$__range:1m]\n) / 60000",
           "instant": true,
           "legendFormat": "{{sensor}}",
           "range": false,
@@ -495,7 +495,7 @@
             "type": "prometheus",
             "uid": "thanos"
           },
-          "description": "Energy used by this plug over the dashboard time range, converted from Wh to kWh. Assumes this load does not return energy.",
+          "description": "Estimated energy from available one-minute averages of active power. Minutes without samples do not contribute; gaps within a minute and the selected-range boundaries introduce approximation. Not a device-measured cumulative energy counter.",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -548,7 +548,7 @@
                 "uid": "thanos"
               },
               "editorMode": "code",
-              "expr": "avg_over_time(\n  (\n    max by (sensor) (\n      shelly_power_watts{sensor=\"$shelly_plug\"}\n    )\n  )[$__range:$__interval]\n) * $__range_s / 3600000",
+              "expr": "sum_over_time(\n  (\n    max by (sensor) (\n      avg_over_time(\n        shelly_power_watts{sensor=\"$shelly_plug\"}[1m]\n      )\n    )\n  )[$__range:1m]\n) / 60000",
               "instant": true,
               "legendFormat": "",
               "range": false,
@@ -631,13 +631,25 @@
             "type": "prometheus",
             "uid": "thanos"
           },
-          "description": "Instantaneous power (W) on the left axis and rolling 5-, 10- and 60-minute energy (Wh) on the right axis. Rolling windows overlap; the 60-minute query is disabled by default.",
+          "description": "Instantaneous active power (W) on the left axis and rolling 5-, 10- and 60-minute estimated energy (Wh) on the right axis. Only one-minute periods containing power samples contribute; rolling windows overlap.",
           "fieldConfig": {
             "defaults": {
               "color": {
                 "fixedColor": "yellow",
                 "mode": "fixed"
               },
+              "decimals": 2,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "watt",
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -671,19 +683,7 @@
                 "thresholdsStyle": {
                   "mode": "off"
                 }
-              },
-              "decimals": 2,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "watt"
+              }
             },
             "overrides": [
               {
@@ -810,7 +810,7 @@
                 "uid": "thanos"
               },
               "editorMode": "code",
-              "expr": "avg_over_time(\n  (\n    max by (sensor) (\n      shelly_power_watts{sensor=\"$shelly_plug\"}\n    )\n  )[5m:$__interval]\n) * 5 / 60",
+              "expr": "sum_over_time(\n  (\n    max by (sensor) (\n      avg_over_time(\n        shelly_power_watts{sensor=\"$shelly_plug\"}[1m]\n      )\n    )\n  )[4m59s:1m]\n) / 60",
               "instant": false,
               "legendFormat": "Rolling 5-minute energy",
               "range": true,
@@ -822,7 +822,7 @@
                 "uid": "thanos"
               },
               "editorMode": "code",
-              "expr": "avg_over_time(\n  (\n    max by (sensor) (\n      shelly_power_watts{sensor=\"$shelly_plug\"}\n    )\n  )[10m:$__interval]\n) * 10 / 60",
+              "expr": "sum_over_time(\n  (\n    max by (sensor) (\n      avg_over_time(\n        shelly_power_watts{sensor=\"$shelly_plug\"}[1m]\n      )\n    )\n  )[9m59s:1m]\n) / 60",
               "instant": false,
               "legendFormat": "Rolling 10-minute energy",
               "range": true,
@@ -834,7 +834,7 @@
                 "uid": "thanos"
               },
               "editorMode": "code",
-              "expr": "avg_over_time(\n  (\n    max by (sensor) (\n      shelly_power_watts{sensor=\"$shelly_plug\"}\n    )\n  )[1h:$__interval]\n) * 60 / 60",
+              "expr": "sum_over_time(\n  (\n    max by (sensor) (\n      avg_over_time(\n        shelly_power_watts{sensor=\"$shelly_plug\"}[1m]\n      )\n    )\n  )[59m59s:1m]\n) / 60",
               "instant": false,
               "legendFormat": "Rolling 1-hour energy",
               "range": true,
@@ -856,6 +856,18 @@
                 "fixedColor": "blue",
                 "mode": "fixed"
               },
+              "decimals": 2,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "amp",
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -889,19 +901,7 @@
                 "thresholdsStyle": {
                   "mode": "off"
                 }
-              },
-              "decimals": 2,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "amp"
+              }
             },
             "overrides": []
           },
@@ -956,6 +956,18 @@
                 "fixedColor": "green",
                 "mode": "fixed"
               },
+              "decimals": 2,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "volt",
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -989,19 +1001,7 @@
                 "thresholdsStyle": {
                   "mode": "off"
                 }
-              },
-              "decimals": 2,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "volt"
+              }
             },
             "overrides": []
           },
@@ -1056,6 +1056,18 @@
                 "fixedColor": "purple",
                 "mode": "fixed"
               },
+              "decimals": 2,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "hertz",
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -1089,19 +1101,7 @@
                 "thresholdsStyle": {
                   "mode": "off"
                 }
-              },
-              "decimals": 2,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "hertz"
+              }
             },
             "overrides": []
           },
@@ -1156,6 +1156,18 @@
                 "fixedColor": "orange",
                 "mode": "fixed"
               },
+              "decimals": 1,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "celsius",
               "custom": {
                 "axisBorderShow": false,
                 "axisCenteredZero": false,
@@ -1189,19 +1201,7 @@
                 "thresholdsStyle": {
                   "mode": "off"
                 }
-              },
-              "decimals": 1,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "celsius"
+              }
             },
             "overrides": []
           },
@@ -1290,13 +1290,13 @@
     ]
   },
   "time": {
-    "from": "now/M",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Shelly · Power & Energy",
   "uid": "shelly-wall-plugs",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }
